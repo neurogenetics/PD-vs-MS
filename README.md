@@ -64,16 +64,24 @@ MS-SIDE                             | PD SIDE                                | D
 ```
 ```
 # LD link comparison MS + PD => R2 = XX D' = XX
+--chr 1 region ZBTB7B:
 rs112344141 + rs114138760	=> R2 = 0.0006 D' = 0.0454
 rs112344141 + rs35749011	=> R2 = 0.0009 D' = 1.0 # warning low freq variant
 rs112344141 + rs76763715	=> R2 = 0.0001 D' = 1.0 # warning low freq variant
+--chr 3 region SATB1 :
 rs9863496 + rs73038319	=> R2 = 0.0154 D' = 0.3911
+--chr 3 region CD86 :
 rs200866143 + rs55961674	=> R2 = XX D' = XX # rs200866143 not in 1K genomes
 rs75937181 + rs55961674	=> R2 = 0.002 D' = 0.0634
+--chr 5 region JADE2 :
 rs2084007 + rs11950533	=> R2 = 0.1159 D' = 0.8675
+--chr 12 region PITPNM2 :
 rs7975763 + rs10847864	=> R2 = 0.0294 D' = 0.4562
+--chr 14 region LINC01146 :
 rs116899835 + rs979812	=> R2 = 0.0669 D' = 0.9654
+--chr 17 region STAT3 :
 rs1026916 + rs12951632	=> R2 = 0.0849 D' = 0.3681
+--chr 17 region MAP3K14 :
 rs7222450 + rs62053943	=> R2 = 0.0011 D' = 0.0777
 rs7222450 + rs117615688	=> R2 = 0.0142 D' = 0.4597
 # nothing really convincing to be honest....
