@@ -93,5 +93,7 @@ rs7222450 + rs117615688	=> R2 = 0.0142 D' = 0.4597
 
 ![alt text](https://github.com/neurogenetics/PD-vs-MS/blob/main/MS_PD_GALC.jpg)
 
+![alt text](https://github.com/neurogenetics/PD-vs-MS/blob/main/MS_PD_LZ.png)
+
 
 
