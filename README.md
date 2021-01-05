@@ -183,3 +183,4 @@ write.table(MM, file="PD_to_Edit_input.txt", quote=FALSE,row.names=F,sep="\t")
 
 
 
+![alt text](https://github.com/neurogenetics/PD-vs-MS/blob/main/Locus_compare_PD_MS.png)
