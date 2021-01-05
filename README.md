@@ -1,9 +1,9 @@
 # PD-vs-MS
 
-`LNG + QMUL ❤️ Open Science 😍`
+`LNG + QMUL`
 
  - **Project:** Is there genetic overlap between MS and PD?
- - **Author(s):** Cornelis B., Ben J.
+ - **Author(s):** Cornelis B., Ben J. Frank G.
  - **Date Last Updated:** December 2020
 
 ---
@@ -23,15 +23,50 @@ TBD
 
 ## Structure of README:
 ### Perform a genome-wide comparison between PD and MS sumstats...
-LDSCORE
+```
+Using LDSCORE to assess genome-wide correlation
+cd /data/CARD/projects/MS_PD/
+
+MS: using stats => discovery_metav3.0.meta.gz
+PD: using stats => /data/CARD/PD/summary_stats/resultsForSmr_filtered.tab.gz
+
+module load ldsc/1.0.0-101-g89c13a7
+# get reference data
+wget https://data.broadinstitute.org/alkesgroup/LDSCORE/eur_w_ld_chr.tar.bz2
+tar -jxvf eur_w_ld_chr.tar.bz2
+
+# PD
+munge_sumstats.py --out PD_all_LDSC --sumstats /data/CARD/PD/summary_stats/resultsForSmr_filtered.tab.gz \
+--merge-alleles eur_w_ld_chr/w_hm3.snplist \
+--snp SNP --a1 A1 --a2 A2 --p p --frq freq
+
+# MS
+## remove N column
+zless discovery_metav3.0.meta.gz | cut -d " " -f1,2,3,4,5,7,8 | grep rs > temp.txt
+zless discovery_metav3.0.meta.gz | cut -d " " -f1,2,3,4,5,7,8 | head -1 > header.txt
+cat header.txt temp.txt > input_MS.txt
+
+munge_sumstats.py --out MS_v3_LDSC --sumstats input_MS.txt \
+--merge-alleles eur_w_ld_chr/w_hm3.snplist \
+--N 115000 --snp SNP --a1 A1 --a2 A2 --p P 
+
+# do final comparison
+
+ldsc.py --rg PD_all_LDSC.sumstats.gz,MS_v3_LDSC.sumstats.gz --out PD_MS --ref-ld-chr eur_w_ld_chr/ --w-ld-chr eur_w_ld_chr/
+
+# summary
+
+Summary of Genetic Correlation Results
+p1                      p2      rg     se       z       p  h2_obs  h2_obs_se  h2_int  h2_int_se  gcov_int  gcov_int_se
+PD_all_LDSC.sumstats.gz  MS_v3_LDSC.sumstats.gz -0.0027  0.029 -0.0922  0.9266  0.1016       0.01  1.0215     0.0108    0.0474        0.005
+
+# no real correlation to be seen here...
+
+```
+
+
+
 ### Perform a localized comparison between PD and MS GWAS regions...
-Bedtools overlap
-
-
-
-
-
-## Perform a localized comparison between PD and MS GWAS regions...
 ```
 Taking sumstats from here https://pubmed.ncbi.nlm.nih.gov/31604244/
 Using Sup Table 7 (only autosomals) => 197 signals
