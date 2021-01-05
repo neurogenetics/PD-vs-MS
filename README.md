@@ -28,7 +28,9 @@ Using LDSCORE to assess genome-wide correlation
 cd /data/CARD/projects/MS_PD/
 
 MS: using stats => discovery_metav3.0.meta.gz
+stats from here => https://pubmed.ncbi.nlm.nih.gov/31604244/ data obtained from https://imsgc.net/
 PD: using stats => /data/CARD/PD/summary_stats/resultsForSmr_filtered.tab.gz
+stats from here => https://pubmed.ncbi.nlm.nih.gov/31701892/ using data plus 23andMe and UK Biobank
 
 module load ldsc/1.0.0-101-g89c13a7
 # get reference data
@@ -63,7 +65,6 @@ PD_all_LDSC.sumstats.gz  MS_v3_LDSC.sumstats.gz -0.0027  0.029 -0.0922  0.9266  
 # no real correlation to be seen here...
 
 ```
-
 
 
 ### Perform a localized comparison between PD and MS GWAS regions...
@@ -129,6 +130,35 @@ rs7222450 + rs117615688	=> R2 = 0.0142 D' = 0.4597
 ![alt text](https://github.com/neurogenetics/PD-vs-MS/blob/main/MS_PD_GALC.jpg)
 
 ![alt text](https://github.com/neurogenetics/PD-vs-MS/blob/main/MS_PD_LZ.png)
+
+
+```
+Also a correlation between P-values using locus-compare => http://www.locuscompare.com/
+
+cd /data/CARD/projects/MS_PD/
+
+MS: using stats => discovery_metav3.0.meta.gz
+stats from here => https://pubmed.ncbi.nlm.nih.gov/31604244/ data obtained from https://imsgc.net/
+PD: using stats => /data/CARD/PD/summary_stats/resultsForSmr_filtered.tab.gz
+stats from here => https://pubmed.ncbi.nlm.nih.gov/31701892/ using data plus 23andMe and UK Biobank
+
+need format:
+rsid	pval
+rs6933892	0.243779
+rs6934084	0.239798
+rs210910	0.193318
+
+## MS
+zless discovery_metav3.0.meta.gz | cut -d " " -f 3,7 | grep rs | grep -v NA | sed -e 's/ /\t/g' > temp.txt
+echo "rsid" > part1.txt
+echo "pval" > part2.txt
+paste part1.txt part2.txt > header2.txt
+cat header2.txt temp.txt > MS_input_locuscompare.txt
+
+## PD
+zless /data/CARD/PD/summary_stats/resultsForSmr_filtered.tab.gz | cut -f 1,7 | sed -e 's/SNP/rsid/g' | sed -e 's/p/pval/g' > PD_input_locuscompare.txt
+
+# download and upload....
 
 
 
