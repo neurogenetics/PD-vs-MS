@@ -3,7 +3,7 @@
 `LNG + QMUL`
 
  - **Project:** Is there genetic overlap between MS and PD?
- - **Author(s):** Cornelis B., Ben J. Frank G.
+ - **Author(s):** Cornelis B., Ben J., Frank G.
  - **Date Last Updated:** December 2020
 
 ---
