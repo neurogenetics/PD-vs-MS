@@ -148,6 +148,20 @@ rs6933892	0.243779
 rs6934084	0.239798
 rs210910	0.193318
 
+# GALC area only...
+14 86000000 90000000 => GALC area
+
+
+awk '{ if($2 >= 86000000) { print }}' pos_cut.txt | head
+
+## MS GALC only...
+zless discovery_metav3.0.meta.gz | awk '{ if($1 == 14) { print }}' | awk '{ if($2 >= 86000000) { print }}' | awk '{ if($2 <= 90000000) { print }}' \
+| cut -d " " -f 3,7 | grep rs | grep -v NA | sed -e 's/ /\t/g' > temp.txt
+echo "rsid" > part1.txt
+echo "pval" > part2.txt
+paste part1.txt part2.txt > header2.txt
+cat header2.txt temp.txt > MS_input_locuscompare.txt
+
 ## MS
 zless discovery_metav3.0.meta.gz | cut -d " " -f 3,7 | grep rs | grep -v NA | sed -e 's/ /\t/g' > temp.txt
 echo "rsid" > part1.txt
@@ -156,7 +170,14 @@ paste part1.txt part2.txt > header2.txt
 cat header2.txt temp.txt > MS_input_locuscompare.txt
 
 ## PD
-zless /data/CARD/PD/summary_stats/resultsForSmr_filtered.tab.gz | cut -f 1,7 | sed -e 's/SNP/rsid/g' | sed -e 's/p/pval/g' > PD_input_locuscompare.txt
+module load R
+R
+require(data.table)
+PD <- fread("/data/CARD/PD/summary_stats/resultsForSmr_filtered.tab.gz",header=T)
+MS <- fread("MS_input_locuscompare.txt",header=T)
+MM <- merge(PD,MS,by.x="SNP",by.y="rsid")
+write.table(MM, file="PD_to_Edit_input.txt", quote=FALSE,row.names=F,sep="\t")
+
 
 # download and upload....
 
