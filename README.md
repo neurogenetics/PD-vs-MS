@@ -180,7 +180,7 @@ write.table(MM, file="PD_to_Edit_input.txt", quote=FALSE,row.names=F,sep="\t")
 
 
 # download and upload....
-
+```
 
 
 ![alt text](https://github.com/neurogenetics/PD-vs-MS/blob/main/Locus_compare_PD_MS.png)
